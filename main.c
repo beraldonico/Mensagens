@@ -7,7 +7,7 @@
 #include "propria.h"
 
 #define DEBUGAR			//Define quando o sistema vai debugar
-#undef DEBUGAR  		//Comentar para ativar low power
+#undef DEBUGAR  		//Comentar para desativar low power
 
 //ativar baixo consumo de energia(necessario desativar para debugar)
 #ifdef DEBUGAR
