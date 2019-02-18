@@ -23,7 +23,8 @@ int ID			= 001;
 int horas		= 18;
 int minutos		= 34;
 int segundos	= 55;
-char msg[12];
+
+char *msg;
 
 uint32_t relogio1,  relogio2;
 
@@ -47,7 +48,9 @@ void fnUSER_Loop( void )
 	{
 		fnGPIO_LED_Toggle();
 
-		send_message(convert_int_to_string(direcao, raio, ID, horas, minutos, segundos));
+		convert_int_to_string(direcao, raio, ID, horas, minutos, segundos);
+
+		send_message(msg);
 
 		#ifdef DEBUGAR
 			fnDEBUG_Uint8_Value ( "\rdirecao  : ", direcao , "\n\r");
@@ -59,12 +62,7 @@ void fnUSER_Loop( void )
 			fnDEBUG_Const_String ( "\rchar msg : ");
 			fnDEBUG_String_Size ( msg, 12 );
 			fnDEBUG_Const_String ( "\n\r");
-
-			fnDEBUG_Const_String ( "\rmandando proxima msg\n\n\r");
-			if(ID == 10)
-			{
-				fnDEBUG_Const_String ( "\rterminou de mandar\n\n\r");
-			}
+			fnDEBUG_Const_String ( "\rentrando no delay\n\n\r");
 		#endif
 
 		relogio1 = fnRTC_Get_Count();
@@ -75,6 +73,17 @@ void fnUSER_Loop( void )
 				break;
 			}
 		}
+
+		#ifdef DEBUGAR
+			if(ID < 10)
+			{
+				fnDEBUG_Const_String ( "\rmandando proxima msg\n\n\r");
+			}
+			if(ID == 10)
+			{
+				fnDEBUG_Const_String ( "\rterminou de mandar\n\n\r");
+			}
+		#endif
 
 		ID++;
 		fnGPIO_LED_Toggle();

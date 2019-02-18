@@ -15,6 +15,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
+
 #include "debug.h"
 #include "console_usb.h"
 #include "event.h"
@@ -23,8 +24,10 @@
 #include "delay_loop.h"
 #include "rtc.h"
 
+extern char *msg;
+
 void send(bool sanding);
-void send_message(char msg_to_send);
-char convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos);
+void send_message(char *msg_to_send);
+void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos);
 
 #endif /* PROPRIA_H_ */

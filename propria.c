@@ -12,10 +12,10 @@ void send(bool sending)
 	sending = !sending;
 }
 
-char convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos)
+void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos)
 {
-	char final_msg_char1[6], final_msg_char2[6];
 	int final_msg_int1, final_msg_int2;
+	char final_msg_char1[6], final_msg_char2[6];
 	char final_msg_char[12];
 
 	final_msg_int1 = direcao*100000 + raio*1000 + ID;
@@ -27,10 +27,10 @@ char convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos
 	strcpy(final_msg_char, final_msg_char1);
 	strcat(final_msg_char, final_msg_char2);
 
-	return final_msg_char[12];
+	strcpy(msg, final_msg_char);
 }
 
- void send_message(char msg_to_send)
+ void send_message(char *msg_to_send)
  {
 	uint32_t relogio1,  relogio2;
 	while(!fnRADIO_Send_Message( (uint8_t*)&msg_to_send, 12, false ))
