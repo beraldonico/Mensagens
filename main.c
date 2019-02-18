@@ -1,15 +1,15 @@
 /*
  * Teste 1
- * Enviar msg ao clicar no "user botton"
+ * Enviar msg ao iniciar o dispositivo
  */
 
 #include "main.h"
-#include "propria.h"
+#include "propria.h"	//header proprio do programador
 
 #define DEBUGAR			//Define quando o sistema vai debugar
 #undef DEBUGAR  		//Comentar para desativar low power
 
-//ativar baixo consumo de energia(necessario desativar para debugar)
+//ativacao do low power(necessario desativar low power para debugar)
 #ifdef DEBUGAR
 	bool __b_system_low_power_enabled__ = false;
 #else
@@ -24,9 +24,10 @@ int horas		= 18;
 int minutos		= 34;
 int segundos	= 55;
 
-char msg[12];
+char msg[12];			//variavel para armazenar a mensagem
 
-uint32_t relogio1,  relogio2;
+uint32_t relogio1;		//variaveis para amazenar o RTC
+uint32_t relogio2;		//utilizado para criar o delay
 
 // This function will execute once, use it to initialize components and set initial values.
 void fnUSER_Setup( void )
@@ -34,9 +35,11 @@ void fnUSER_Setup( void )
 	#ifdef DEBUGAR
 		//iniciar debug do dispositivo
 		fnCONSOLE_USB_Init( );
-		fnDELAY_LOOP_ms (500);
+		//print inicial no terminal
 		fnDEBUG_Const_String( "\rDispositivo iniciado\n\r");
 	#endif
+	//delay no loop para dar tempo
+	fnDELAY_LOOP_ms (500);
 	//Inicia o radio
 	fnRADIO_Init();
 }
@@ -46,29 +49,58 @@ void fnUSER_Loop( void )
 {
 	if ( ID <= 10 )
 	{
+		//inversao do estado do LED
 		fnGPIO_LED_Toggle();
 
-		fnDEBUG_Const_String ( "\rentrando em convert_int_to_string\n\r");
-		fnDELAY_LOOP_ms (500);
+		#ifndef DEBUGAR
+			//print afim de indicar a entrada na funcao
+			fnDEBUG_Const_String ( "\rentrando em convert_int_to_string\n\r");
+		#endif
+
+		//Conversao dos dados de inteiro para string
+		//com a finalidade de mandar a mensagem
 		convert_int_to_string(direcao, raio, ID, horas, minutos, segundos);
 
-		fnDEBUG_Const_String ( "\rentrando em send_message\n\r");
-		fnDELAY_LOOP_ms (500);
+		#ifndef DEBUGAR
+			//print afim de indicar a entrada na funcao
+			fnDEBUG_Const_String ( "\rentrando em send_message\n\r");
+		#endif
+
+		//envio da mensagem
 		send_message(msg);
 
+		//inversao do estado do LED
+		fnGPIO_LED_Toggle();
+
 		#ifdef DEBUGAR
+			//printf no terminal das variaveis
 			fnDEBUG_Uint8_Value ( "\rdirecao  : ", direcao , "\n\r");
 			fnDEBUG_Uint8_Value ( "\rraio     : ", raio , "\n\r");
 			fnDEBUG_Uint8_Value ( "\rID       : ", ID , "\n\r");
 			fnDEBUG_Uint8_Value ( "\rhoras    : ", horas, "\n\r");
 			fnDEBUG_Uint8_Value ( "\rminutos  : ", minutos, "\n\r");
 			fnDEBUG_Uint8_Value ( "\rsegundos : ", segundos , "\n\r");
-			fnDEBUG_Const_String ( "\rchar msg : ");
+			fnDEBUG_Const_String ( "\rmsg : ");
 			fnDEBUG_String_Size ( msg, 12 );
-			fnDEBUG_Const_String ( "\n\r");
-			fnDEBUG_Const_String ( "\rentrando no delay\n\n\r");
+			fnDEBUG_Const_String ( "\n\n\r");
+
+			//print no terminal entre as mensagens
+			if(ID < 10)
+			{
+				fnDEBUG_Const_String ( "\rmandando proxima msg\n\n\r");
+				fnDEBUG_Const_String ( "\rentrando no delay\n\n\r");
+			}
+			else if(ID == 10)
+			{
+				fnDEBUG_Const_String ( "\rultima msg enviada\n\n\r");
+			}
+			else
+			{
+				fnDEBUG_Const_String ( "\rterminou de mandar\n\n\r");
+			}
 		#endif
 
+		//delay entre as diferente mensagens
 		relogio1 = fnRTC_Get_Count();
 		while(1){
 			relogio2 = fnRTC_Get_Count();
@@ -78,18 +110,7 @@ void fnUSER_Loop( void )
 			}
 		}
 
-		#ifdef DEBUGAR
-			if(ID < 10)
-			{
-				fnDEBUG_Const_String ( "\rmandando proxima msg\n\n\r");
-			}
-			if(ID == 10)
-			{
-				fnDEBUG_Const_String ( "\rterminou de mandar\n\n\r");
-			}
-		#endif
-
+		//incremento do ID
 		ID++;
-		fnGPIO_LED_Toggle();
 	}
 }

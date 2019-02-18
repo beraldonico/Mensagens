@@ -40,9 +40,8 @@ propria.d propria.o: .././propria.c ..\\sdk\Includes/propria.h \
  d:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h \
  d:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
  ..\\sdk\Includes/debug.h ..\\sdk\Includes/console_usb.h \
- ..\\sdk\Includes/event.h ..\\sdk\Includes/gpio.h \
- ..\\sdk\Includes/radio.h ..\\sdk\Includes/delay_loop.h \
- ..\\sdk\Includes/rtc.h
+ ..\\sdk\Includes/gpio.h ..\\sdk\Includes/radio.h \
+ ..\\sdk\Includes/delay_loop.h ..\\sdk\Includes/rtc.h
 
 ..\\sdk\Includes/propria.h:
 
@@ -129,8 +128,6 @@ d:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ..\\sdk\Includes/debug.h:
 
 ..\\sdk\Includes/console_usb.h:
-
-..\\sdk\Includes/event.h:
 
 ..\\sdk\Includes/gpio.h:
 
