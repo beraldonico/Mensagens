@@ -7,11 +7,6 @@
 
 #include "propria.h"
 
-void send(bool sending)
-{
-	sending = !sending;
-}
-
 void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos)
 {
 	int final_msg_int1, final_msg_int2;
@@ -33,7 +28,7 @@ void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos
  void send_message(char *msg_to_send)
  {
 	uint32_t relogio1,  relogio2;
-	while(!fnRADIO_Send_Message( (uint8_t*)&msg_to_send, 12, false ))
+	while(!fnRADIO_Send_Message( (uint8_t*)msg_to_send, 12, false ))
 	{
 		relogio1 = fnRTC_Get_Count();
 		while(1){

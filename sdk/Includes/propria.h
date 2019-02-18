@@ -24,9 +24,8 @@
 #include "delay_loop.h"
 #include "rtc.h"
 
-extern char *msg;
+extern char msg[12];
 
-void send(bool sanding);
 void send_message(char *msg_to_send);
 void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos);
 

@@ -7,7 +7,7 @@
 #include "propria.h"
 
 #define DEBUGAR			//Define quando o sistema vai debugar
-//#undef DEBUGAR  		//Comentar para ativar low power
+#undef DEBUGAR  		//Comentar para ativar low power
 
 //ativar baixo consumo de energia(necessario desativar para debugar)
 #ifdef DEBUGAR
@@ -24,7 +24,7 @@ int horas		= 18;
 int minutos		= 34;
 int segundos	= 55;
 
-char *msg;
+char msg[12];
 
 uint32_t relogio1,  relogio2;
 
@@ -48,8 +48,12 @@ void fnUSER_Loop( void )
 	{
 		fnGPIO_LED_Toggle();
 
+		fnDEBUG_Const_String ( "\rentrando em convert_int_to_string\n\r");
+		fnDELAY_LOOP_ms (500);
 		convert_int_to_string(direcao, raio, ID, horas, minutos, segundos);
 
+		fnDEBUG_Const_String ( "\rentrando em send_message\n\r");
+		fnDELAY_LOOP_ms (500);
 		send_message(msg);
 
 		#ifdef DEBUGAR
