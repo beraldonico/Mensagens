@@ -6,8 +6,15 @@
 #include "main.h"
 #include "propria.h"	//header proprio do programador
 
+#define DIRECAO		5	//N 1, S 2, L 3, O 4, Inicio 5
+#define RAIO		1
+#define ID			11
+#define HORAS		12
+#define MINUTOS		34
+#define SEGUNDOS	56
+
 #define DEBUGAR			//Define quando o sistema vai debugar
-#undef DEBUGAR  		//Comentar para desativar low power
+//#undef DEBUGAR  		//Comentar para desativar low power
 
 //ativacao do low power(necessario desativar low power para debugar)
 #ifdef DEBUGAR
@@ -17,12 +24,12 @@
 #endif
 
 //Iniciar variaveis
-int direcao		= 1;	//N 1, S 2, L 3, O 4
-int raio		= 14;
-int ID			= 001;
-int horas		= 18;
-int minutos		= 34;
-int segundos	= 55;
+int direcao		= DIRECAO;
+int raio		= RAIO;
+int id			= ID;
+int horas		= HORAS;
+int minutos		= MINUTOS;
+int segundos	= SEGUNDOS;
 
 char msg[12];			//variavel para armazenar a mensagem
 
@@ -47,7 +54,7 @@ void fnUSER_Setup( void )
 // Anything within the USER_Loop context will execute continuously.
 void fnUSER_Loop( void )
 {
-	if ( ID <= 10 )
+	if ( id <= ID + 9 )
 	{
 		//inversao do estado do LED
 		fnGPIO_LED_Toggle();
@@ -59,7 +66,7 @@ void fnUSER_Loop( void )
 
 		//Conversao dos dados de inteiro para string
 		//com a finalidade de mandar a mensagem
-		convert_int_to_string(direcao, raio, ID, horas, minutos, segundos);
+		convert_int_to_string(direcao, raio, id, horas, minutos, segundos);
 
 		#ifndef DEBUGAR
 			//print afim de indicar a entrada na funcao
@@ -76,7 +83,7 @@ void fnUSER_Loop( void )
 			//printf no terminal das variaveis
 			fnDEBUG_Uint8_Value ( "\rdirecao  : ", direcao , "\n\r");
 			fnDEBUG_Uint8_Value ( "\rraio     : ", raio , "\n\r");
-			fnDEBUG_Uint8_Value ( "\rID       : ", ID , "\n\r");
+			fnDEBUG_Uint8_Value ( "\rID       : ", id , "\n\r");
 			fnDEBUG_Uint8_Value ( "\rhoras    : ", horas, "\n\r");
 			fnDEBUG_Uint8_Value ( "\rminutos  : ", minutos, "\n\r");
 			fnDEBUG_Uint8_Value ( "\rsegundos : ", segundos , "\n\r");
@@ -85,12 +92,12 @@ void fnUSER_Loop( void )
 			fnDEBUG_Const_String ( "\n\n\r");
 
 			//print no terminal entre as mensagens
-			if(ID < 10)
+			if(id < ID + 9)
 			{
 				fnDEBUG_Const_String ( "\rmandando proxima msg\n\n\r");
 				fnDEBUG_Const_String ( "\rentrando no delay\n\n\r");
 			}
-			else if(ID == 10)
+			else if(id == ID + 9)
 			{
 				fnDEBUG_Const_String ( "\rultima msg enviada\n\n\r");
 			}
@@ -111,6 +118,6 @@ void fnUSER_Loop( void )
 		}
 
 		//incremento do ID
-		ID++;
+		id++;
 	}
 }

@@ -30,7 +30,7 @@ extern char msg[12];
 
 //declaracao de funcoes
 //conversao das variaveis de int para string
-void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos);
+void convert_int_to_string(int direcao, int raio, int id, int horas, int minutos, int segundos);
 //envio da mensagem
 void send_message(char *msg_to_send);
 

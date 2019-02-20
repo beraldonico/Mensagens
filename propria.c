@@ -8,14 +8,14 @@
 #include "propria.h"
 
 //conversao das variaveis de int para string
-void convert_int_to_string(int direcao, int raio, int ID, int horas, int minutos, int segundos)
+void convert_int_to_string(int direcao, int raio, int id, int horas, int minutos, int segundos)
 {
 	int final_msg_int1, final_msg_int2;
 	char final_msg_char1[6], final_msg_char2[6];
 
 	//Juncao das variaveis de dados
 	//A utilizacao de duas fases e necessaria devido ao limite de 32 bits
-	final_msg_int1 = direcao*100000 + raio*1000 + ID;
+	final_msg_int1 = direcao*100000 + raio*1000 + id;
 	final_msg_int2 = horas*10000 + minutos*100 + segundos;
 
 	//conversao das variaveis de int para string
