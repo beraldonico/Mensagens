@@ -6,15 +6,15 @@
 #include "main.h"
 #include "propria.h"	//header proprio do programador
 
-#define DIRECAO		5	//N 1, S 2, L 3, O 4, Inicio 5
-#define RAIO		1
-#define ID			11
-#define HORAS		12
-#define MINUTOS		34
-#define SEGUNDOS	56
+#define DIRECAO		3	//N 1, S 2, L 3, O 4, Inicio 5
+#define RAIO		8
+#define ID			151
+#define HORAS		17
+#define MINUTOS		36
+#define SEGUNDOS	0
 
 #define DEBUGAR			//Define quando o sistema vai debugar
-//#undef DEBUGAR  		//Comentar para desativar low power
+#undef DEBUGAR  		//Comentar para desativar low power
 
 //ativacao do low power(necessario desativar low power para debugar)
 #ifdef DEBUGAR
@@ -42,11 +42,11 @@ void fnUSER_Setup( void )
 	#ifdef DEBUGAR
 		//iniciar debug do dispositivo
 		fnCONSOLE_USB_Init( );
+		//delay no loop para dar tempo
+		fnDELAY_LOOP_ms (500);
 		//print inicial no terminal
 		fnDEBUG_Const_String( "\rDispositivo iniciado\n\r");
 	#endif
-	//delay no loop para dar tempo
-	fnDELAY_LOOP_ms (500);
 	//Inicia o radio
 	fnRADIO_Init();
 }
